@@ -11,13 +11,19 @@ class PayrollSystem:
 # Parent class
 class Employee:
     # Each employee will have an id and name has their instance attributes
-    def __init__(self, id:int, name:str) -> None:
+    def __init__(self, 
+                 id:int, 
+                 name:str) -> None:
         self.id = id
         self.name = name
 
+
 # Child class of Employee
 class SalaryEmployee(Employee):
-    def __init__(self, id:int, name:str, weekly_salary:int) -> None:
+    def __init__(self, 
+                 id:int, 
+                 name:str, 
+                 weekly_salary:int) -> None:
         # will have same instance attributes
         # avoids having to type
         # self.id = id
@@ -36,8 +42,8 @@ class HourlyEmployee(Employee):
         self.hours_worked = hours_worked
         self.hour_rate = hour_rate
 
-        def calculate_payroll(self) -> float:
-            return self.hours_worked * self.hour_rate
+    def calculate_payroll(self) -> float:
+        return self.hours_worked * self.hour_rate
 
 # Child class of Salary Employee
 class CommissionEmployee(SalaryEmployee):
@@ -46,5 +52,6 @@ class CommissionEmployee(SalaryEmployee):
         self.commission = commission
 
     def calculate_payroll(self) -> int:
-        fixed = super().calculate_payroll(self)
+        fixed = super().calculate_payroll()
         return fixed + self.commission
+
