@@ -1,94 +1,89 @@
 # employees.py
 
+import hr
+import productivity
+
 # Parent class
 class Employee:
     # Each employee will have an id and name has their instance attributes
     def __init__(self, 
-                 id:int, 
-                 name:str) -> None:
+                 id: int, 
+                 name: str) -> None:
         self.id = id
         self.name = name
 
-# Child class of Employee
-class SalaryEmployee(Employee):
+# Child class of SalaryEmployee
+class Manager(Employee, 
+              productivity.ManagerRole, 
+              hr.SalaryPolicy):
     def __init__(self, 
-                 id:int, 
-                 name:str, 
-                 weekly_salary:int) -> None:
-        # will have same instance attributes
-        # avoids having to type
+                 id: int, 
+                 name: str,
+                 weekly_salary: int) -> None:
+        # avoids having to write
+        # self.weekly_salary = weekly_salary
+        hr.SalaryPolicy.__init__(self,
+                                 weekly_salary) 
+        # avoids having to write
         # self.id = id
         # self.name = name
         super().__init__(id, 
                          name)
-        # instance attribute unique to Salaried Employee
-        self.weekly_salary = weekly_salary
 
-    def calculate_payroll(self) -> int:
-        return self.weekly_salary
-
-# Child class of Employee
-class HourlyEmployee(Employee):
-    def __init__(self, 
-                 id: int, 
-                 name: str, 
-                 hours_worked: float, 
-                 hour_rate: float) -> None: 
+# Child class of SalaryEmployee
+class Secretary(Employee, 
+                productivity.SecretaryRole, 
+                hr.SalaryPolicy):
+    def __init__(self,
+                 id: int,
+                 name: str,
+                 weekly_salary: int) -> None:
+        hr.SalaryPolicy.__init__(self,
+                                 weekly_salary)
         super().__init__(id, 
                          name)
-        self.hours_worked = hours_worked
-        self.hour_rate = hour_rate
-
-    def calculate_payroll(self) -> float:
-        return self.hours_worked * self.hour_rate
-
-# Child class of SalaryEmployee
-class CommissionEmployee(SalaryEmployee):
-    def __init__(self, 
-                 id: int, 
-                 name: str, 
-                 weekly_salary: int, 
-                 commission: int) -> None:
-        super().__init__(id, 
-                         name, 
-                         weekly_salary)
-        self.commission = commission
-
-    def calculate_payroll(self) -> int:
-        fixed = super().calculate_payroll()
-        return fixed + self.commission
-
-# Child class of SalaryEmployee
-class Manager(SalaryEmployee):
-    def work(self, 
-             hours:int) -> None:
-        print(f'{self.name} screams and yells for {hours} hours.')
-
-# Child class of SalaryEmployee
-class Secretary(SalaryEmployee):
-    def work(self, 
-             hours:int) -> None:
-        print(f'{self.name} expends {hours} hours doing office paperwork.')
 
 # Child class of CommissionEmployee
-class SalesPerson(CommissionEmployee):
-    def work(self, 
-             hours:int) -> None:
-        print(f'{self.name} expends {hours} hours on the phone.')
+class SalesPerson(Employee, 
+                  productivity.SalesRole, 
+                  hr.CommissionPolicy):
+    def __init__(self, 
+                 id: int, 
+                 name: str,
+                 weekly_salary: int,
+                 commission: int) -> None:
+        hr.CommissionPolicy.__init__(self,
+                                     weekly_salary,
+                                     commission)
+        super().__init__(id, 
+                         name)
 
 # Child class of HourlyEmployee
-class FactoryWorker(HourlyEmployee):
-    def work(self, 
-             hours:int) -> None:
-        print(f'{self.name} manufactures gadgets for {hours} hours.')
+class FactoryWorker(Employee, 
+                    productivity.FactoryRole, 
+                    hr.HourlyPolicy):
+    def __init__(self, 
+                 id: int, 
+                 name: str,
+                 hours_worked:int,
+                 hour_rate:float) -> None:
+        hr.HourlyPolicy.__init__(self,
+                                 hours_worked,
+                                 hour_rate)
+        super().__init__(id, 
+                         name)
 
-class TemporarySecretary(HourlyEmployee, Secretary):
+class TemporarySecretary(Employee, 
+                         productivity.FactoryRole, 
+                         hr.HourlyPolicy):
     def __init__(self,
                  id:int,
                  name:str,
                  hours_worked:int,
                  hour_rate:float) -> None:
+
+        hr.HourlyPolicy.__init__(self,
+                                 hours_worked,
+                                 hour_rate)
         super().__init__(id,
-                         name,
-                         hours_worked,
-                         hour_rate)
+                         name)

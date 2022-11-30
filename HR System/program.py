@@ -18,7 +18,7 @@ factory_worker = employees.FactoryWorker(2,
                                          'Jane Doe', 
                                          40, 
                                          15)
-temporary_secretary = employees.TemprarySecretary(5,
+temporary_secretary = employees.TemporarySecretary(5,
                                                   'Robin Williams',
                                                   40,
                                                   9)
