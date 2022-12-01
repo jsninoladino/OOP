@@ -11,6 +11,7 @@ class Employee:
                  name: str) -> None:
         self.id = id
         self.name = name
+        self.address = None
 
 # Child class of SalaryEmployee
 class Manager(Employee, 
