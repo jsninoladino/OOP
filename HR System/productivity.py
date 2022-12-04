@@ -1,6 +1,21 @@
 # productivity.py
 
 class ProductivitySystem:
+    def __init__(self):
+        self._roles = {
+            'manager': ManagerRole,
+            'secretary': SecretaryRole,
+            'sales': SalesRole,
+            'factory': FactoryRole
+        }
+
+    def get_role(self,
+                 role_id:int):
+        role_type = self._roles.get(role_id)
+        if not role_type:
+            raise ValueError('role_id')
+        return role_type
+
     def track(self, 
               employees:list, 
               hours:int) -> None:
@@ -12,7 +27,7 @@ class ProductivitySystem:
         print('')
 
 class ManagerRole:
-    def work(self,
+    def work(self,    
              hours:int) -> str:
         return f'screams and yells for {hours} hours.'
 

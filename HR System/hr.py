@@ -1,6 +1,7 @@
 # hr.py
 
 class PayrollSystem:
+
     def calculate_payroll(self, employees:object):
         print('Calculating Payroll')
         print('===================')

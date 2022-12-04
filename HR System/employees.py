@@ -82,7 +82,6 @@ class TemporarySecretary(Employee,
                  name:str,
                  hours_worked:int,
                  hour_rate:float) -> None:
-
         hr.HourlyPolicy.__init__(self,
                                  hours_worked,
                                  hour_rate)

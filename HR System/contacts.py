@@ -6,7 +6,7 @@ class Address:
                  city:str,
                  state:str,
                  zipcode:str,
-                 street2:str ='') -> None:
+                 street2:str='') -> None:
         self.street = street
         self.street2 = street2
         self.city = city
